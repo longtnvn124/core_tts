@@ -1,0 +1,13 @@
+@import '../../../styles/theme-palette-colors.scss';
+
+.w-50 {
+    width: 50%;
+}
+
+.vertical-menu-active {
+    color: var(--primary-500) !important;
+}
+
+.coded-inner-navbar:hover li{
+    background-color: aqua;
+}

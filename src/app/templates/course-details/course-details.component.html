@@ -1,0 +1,212 @@
+<div class="course-details-contain position-relative" [class.course-details-contain--on-loading]="loading">
+    <div class="course-details-contain__head intro-y">
+        <button (click)="onNavigate('PREVIOUS')" class="course-details-contain__head__navigate-back" pButton pRipple icon="pi pi-times"></button>
+        <div class="container">
+            <div class="col-12">
+                <div class="course-details-contain__head-wrap">
+                    <h2 class="course-details-contain__course-heading">{{ course?.title }}</h2>
+                    <p *ngIf="course" class="course-details-contain__course-desc" [innerHTML]="course.desc | safeHtml"></p>
+                    <ul class="course-details-contain__list-head-info">
+                        <li *ngIf="mainInstructorName">
+                            <div class="course-details-contain__head-info">
+                                <i class="ph-duotone ph-user-circle-gear"></i>
+                                <span>{{ mainInstructorName }}</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="course-details-contain__head-info">
+                                <i class="ph-duotone ph-globe"></i>
+                                <span>{{ course ? course.language === 'vn' ? 'Tiếng việt' : 'Tiếng anh' : '' }}</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="course-details-contain__head-info">
+                                <div class="course-details-contain__head-rate-star --5-starts">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17px" height="16px" viewBox="0 0 17 16">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <g fill="currentColor" fill-rule="nonzero">
+                                                <polygon points="8.5 12.3076923 3.03571429 16 5.46428571 9.84615385 0 6.15384615 6.07142857 6.15384615 8.5 0 10.9285714 6.15384615 17 6.15384615 11.5357143 9.84615385 13.9642857 16"></polygon>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17px" height="16px" viewBox="0 0 17 16">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <g fill="currentColor" fill-rule="nonzero">
+                                                <polygon points="8.5 12.3076923 3.03571429 16 5.46428571 9.84615385 0 6.15384615 6.07142857 6.15384615 8.5 0 10.9285714 6.15384615 17 6.15384615 11.5357143 9.84615385 13.9642857 16"></polygon>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17px" height="16px" viewBox="0 0 17 16">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <g fill="currentColor" fill-rule="nonzero">
+                                                <polygon points="8.5 12.3076923 3.03571429 16 5.46428571 9.84615385 0 6.15384615 6.07142857 6.15384615 8.5 0 10.9285714 6.15384615 17 6.15384615 11.5357143 9.84615385 13.9642857 16"></polygon>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17px" height="16px" viewBox="0 0 17 16">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <g fill="currentColor" fill-rule="nonzero">
+                                                <polygon points="8.5 12.3076923 3.03571429 16 5.46428571 9.84615385 0 6.15384615 6.07142857 6.15384615 8.5 0 10.9285714 6.15384615 17 6.15384615 11.5357143 9.84615385 13.9642857 16"></polygon>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17px" height="16px" viewBox="0 0 17 16">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <g fill="currentColor" fill-rule="nonzero">
+                                                <polygon points="8.5 12.3076923 3.03571429 16 5.46428571 9.84615385 0 6.15384615 6.07142857 6.15384615 8.5 0 10.9285714 6.15384615 17 6.15384615 11.5357143 9.84615385 13.9642857 16"></polygon>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <span>(30 Bình luận)</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="course-details-contain__body intro-y">
+        <div class="container">
+            <div class="course-details-contain__body-inner">
+                <div class="course-details-contain__body-inner__left">
+                    <div class="course-details__tabs__head">
+                        <button class="btn course-details__tabs__btn" [class.--active]="tabActive==='description'" (click)="changesTab('description')" type="button">Tổng quan</button>
+                        <button class="btn course-details__tabs__btn" [class.--active]="tabActive==='curriculum'" (click)="changesTab('curriculum')" type="button">Bài giảng</button>
+                        <button class="btn course-details__tabs__btn" [class.--active]="tabActive==='instructor'" (click)="changesTab('instructor')" type="button">Giảng viên</button>
+                        <button class="btn course-details__tabs__btn" [class.--active]="tabActive==='review'" (click)="changesTab('review')" type="button">Đánh giá</button>
+                    </div>
+                    <div class="course-details__tabs__body">
+                        <ng-container [ngSwitch]="tabActive">
+                            <div *ngSwitchDefault class="course-details__tab-section course-details__tab-description intro-y">
+                                <ng-container *ngIf="course">
+                                    <div class="course-details__tab-description__block lock-ck-content" *ngIf="course.text_introduce">
+                                        <h4 class="course-details__tab-description__block__heading">Mục tiêu khóa học:</h4>
+                                        <div class="course-details__tab-description__block__content limit-max-width-images-by-container-size" appLoadMediaOnText [innerHTML]="course.text_introduce | safeHtml"></div>
+                                    </div>
+                                    <div class="course-details__tab-description__block lock-ck-content" *ngIf="course.danhchoai">
+                                        <h4 class="course-details__tab-description__block__heading">Khóa học dành cho ai:</h4>
+                                        <div class="course-details__tab-description__block__content limit-max-width-images-by-container-size" appLoadMediaOnText [innerHTML]="course.danhchoai | safeHtml"></div>
+                                    </div>
+                                    <div class="course-details__tab-description__block lock-ck-content" *ngIf="course.text_benefit">
+                                        <h4 class="course-details__tab-description__block__heading">Lợi ích của khóa học:</h4>
+                                        <div class="course-details__tab-description__block__content limit-max-width-images-by-container-size" appLoadMediaOnText [innerHTML]="course.text_benefit | safeHtml"></div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                            <div *ngSwitchCase="'curriculum'" class="course-details__tab-section course-details__tab-curriculum intro-y">
+                                <app-course-curriculum [course-id]="courseId" [lessons]="lessons" (onLoadLessons)="setLessonData($event)"></app-course-curriculum>
+                            </div>
+                            <div *ngSwitchCase="'instructor'" class="course-details__tab-section course-details__tab-instructor intro-y">
+                                <div class="course-details__instructor__list" *ngIf="instructor && instructor.length; else emptyInstructor">
+                                    <div class="course-instructor" *ngFor="let i of instructor">
+                                        <div class="course-instructor__avatar">
+                                            <svg class="pc-icon" *ngIf="i.gender === 'Nữ'; else maleIcon">
+                                                <use href="assets/fonts/custom-icon.svg#female-instructor"></use>
+                                            </svg>
+                                            <ng-template #maleIcon>
+                                                <svg class="pc-icon">
+                                                    <use href="assets/fonts/custom-icon.svg#male-instructor"></use>
+                                                </svg>
+                                            </ng-template>
+                                        </div>
+                                        <div class="course-instructor__info">
+                                            <h4 class="course-instructor__info__name">{{ i.full_name }}</h4>
+                                            <b class="course-instructor__info__title">{{ i.chucvu }}</b>
+                                            <p class="course-instructor__info__bio"></p>
+                                            <div class="course-instructor__info__social-info"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #emptyInstructor></ng-template>
+                            </div>
+                            <div *ngSwitchCase="'review'" class="course-details__tab-section course-details__tab-review intro-y">
+                                <app-course-review></app-course-review>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="course-details-contain__body-inner__right">
+                    <div class="course-details-contain__body-inner__right__head">
+                        <img [src]="course.img_url ? '../../../assets/images/svg/loading.svg' : '../../../assets/images/placeholder-368x206.svg'" *ngIf="course" [appLoadCourseThumbnail]="course.img_url" alt="course info" class="thumbnail-loading">
+                        <div class="course-details-contain__body-inner__play-intro" *ngIf="course && course.video_introduce">
+                            <button (click)="playVideoIntro( course.video_introduce)" class="course-details-contain__body-inner__play-intro__btn">
+                                <svg viewBox="0 0 24 24">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="course-details-contain__body-inner__right__body">
+                        <h5 class="course-details-contain__body-inner__heading f-18">Khóa học bao gồm:</h5>
+                        <ul class="course-details__attributes">
+                            <li>
+                                <div class="course-details__attributes__elm">
+                                    <span class="course-details__attributes__label"><i class="ph-duotone ph-money"></i>Giá</span>
+                                    <div class="course-details__attributes__index course-info__wrap-price">
+                                        <ng-container *ngIf="!cost.free">
+                                            <bdi *ngIf="!cost.sale; else showSalePrice">{{ cost.price }}</bdi>
+                                            <ng-template #showSalePrice>
+                                                <del>
+                                                    <bdi>{{ cost.price }}</bdi>
+                                                </del>
+                                                <ins>
+                                                    <bdi>{{ cost.sale }}</bdi>
+                                                </ins>
+                                            </ng-template>
+                                        </ng-container>
+                                        <span class="course-info__free-label font-roboto f-w-400 f-14" *ngIf="cost.free">Miễn phí</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="course-details__attributes__elm">
+                                    <span class="course-details__attributes__label"><i class="ph-duotone ph-user"></i>Giảng viên</span>
+                                    <span class="course-details__attributes__index">{{ mainInstructorName }}</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="course-details__attributes__elm">
+                                    <span class="course-details__attributes__label"><i class="ph-duotone ph-timer"></i>Thời lượng</span>
+                                    <span class="course-details__attributes__index">{{ course ? course.total_time : '' }}</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="course-details__attributes__elm">
+                                    <span class="course-details__attributes__label"><i class="ph-duotone ph-books"></i>Số bài giảng</span>
+                                    <span class="course-details__attributes__index">{{ course ? course.sobaigiang : '' }}</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="course-details__attributes__elm">
+                                    <span class="course-details__attributes__label"><i class="ph-duotone ph-student"></i>Số học viên</span>
+                                    <span class="course-details__attributes__index">{{ course ? course.activated : '' }}</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="course-details__attributes__elm">
+                                    <span class="course-details__attributes__label"><i class="ph-duotone ph-globe"></i>Ngôn ngữ</span>
+                                    <span class="course-details__attributes__index">{{ course ? course.language === 'vn' ? 'Tiếng việt' : 'Tiếng anh' : '' }}</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="course-details__attributes__elm">
+                                    <span class="course-details__attributes__label"><i class="ph-duotone ph-medal"></i>Chứng chỉ cuối khóa</span>
+                                    <span class="course-details__attributes__index">{{ course && course.certification ? 'Có' : 'Không' }}</span>
+                                </div>
+                            </li>
+                            <li *ngIf="course && course.certification">
+                                <div class="course-details__attributes__elm">
+                                    <span class="course-details__attributes__label"><i class="ph-duotone ph-certificate"></i>Loại CC</span>
+                                    <span class="course-details__attributes__index">{{ certification[ course.certification ] }}</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <button *ngIf="button" [disabled]="button.disable" (click)="onButtonClick(button)" [ngClass]="['course-details-contain__btn-enroll theme-button p-button--center w-100',button.class]" type="button" pButton pRipple [label]="button.label" [icon]="button.icon"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-loading-progress-bar *ngIf="loading" style="--app-loading-progress-bar-overlay: rgb(249 249 249 / 63%)"></app-loading-progress-bar>
+</div>
