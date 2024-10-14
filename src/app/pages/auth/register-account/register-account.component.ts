@@ -1,260 +1,143 @@
 import { CommonModule, DOCUMENT } from "@angular/common";
 import { Component, Inject, NgZone, OnInit, Renderer2 } from "@angular/core";
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { SharedModule } from "@module/shared/shared.module";
-import { BehaviorSubject } from "rxjs";
+import {BehaviorSubject, switchMap} from "rxjs";
 import { IframeUtils } from "../login/iframe-utils";
 import { Title } from "@angular/platform-browser";
 import { environment } from "@env";
 import { GoogleSignIn, ConstructUser, UserSignIn } from "@model/user";
 import { AuthService } from "@service/core/auth.service";
 import { UserService } from "@service/core/user.service";
+import {NotificationService} from "@appNotification";
+import {EmailValidator, PasswordValidator, PhoneNumberValidator} from "@utilities/validators";
+import {RegisterAccountService} from "@service/thuctapsinh/register-account.service";
+import {TooltipModule} from "primeng/tooltip";
+import {ButtonModule} from "primeng/button";
+import {RippleModule} from "primeng/ripple";
 
-declare var google : any;
-
-interface GooglePayload {
-	aud : string;
-	azp : string;
-	email : string;
-	email_verified : boolean;
-	exp : number;
-	family_name : string;
-	given_name : string;
-	iat : number;
-	iss : string;
-	jti : string;
-	locale : string;
-	name : string;
-	nbf : number;
-	picture : string;
-	sub : string;
-}
-
-interface IdConfiguration {
-	client_id : string;
-	auto_select? : boolean;
-	callback : ( handleCredentialResponse : CredentialResponse ) => void;
-	login_uri? : string;
-	native_callback? : Function;
-	cancel_on_tap_outside? : boolean;
-	prompt_parent_id? : string;
-	nonce? : string;
-	context? : string;
-	state_cookie_domain? : string;
-	ux_mode? : 'popup' | 'redirect';
-	allowed_parent_origin? : string | string[];
-	intermediate_iframe_close_callback? : Function;
-}
-
-interface CredentialResponse {
-	credential? : string;
-	select_by? :
-		| 'auto'
-		| 'user'
-		| 'user_1tap'
-		| 'user_2tap'
-		| 'btn'
-		| 'btn_confirm'
-		| 'brn_add_session'
-		| 'btn_confirm_add_session';
-	clientId? : string;
-}
-
-interface GsiButtonConfiguration {
-	type : 'standard' | 'icon',
-	theme? : 'outline' | 'filled_blue' | 'filled_black',
-	size? : 'large' | 'medium' | 'small',
-	text? : 'signin_with' | 'signup_with' | 'continue_with',
-	shape? : 'rectangular' | 'pill' | 'circle' | 'square',
-	logo_alignment? : 'left' | 'center',
-	width? : string,
-	local? : string,
-}
-
-interface PromptMomentNotification {
-	isDisplayMoment : () => boolean;
-	isDisplayed : () => boolean;
-	isNotDisplayed : () => boolean;
-	getNotDisplayedReason : () =>
-		| 'browser_not_supported'
-		| 'invalid_client'
-		| 'missing_client_id'
-		| 'opt_out_or_no_session'
-		| 'secure_http_required'
-		| 'suppressed_by_user'
-		| 'unregistered_origin'
-		| 'unknown_reason';
-	isSkippedMoment : () => boolean;
-	getSkippedReason : () =>
-		| 'auto_cancel'
-		| 'user_cancel'
-		| 'tap_outside'
-		| 'issuing_failed';
-	isDismissedMoment : () => boolean;
-	getDismissedReason : () =>
-		| 'credential_returned'
-		| 'cancel_called'
-		| 'flow_restarted';
-	getMomentType : () => 'display' | 'skipped' | 'dismissed';
-}
-
-interface Window {
-	google? : {
-		accounts : {
-			id : {
-				initialize : ( input : IdConfiguration ) => void
-				prompt : (
-					momentListener : ( res : PromptMomentNotification ) => void
-				) => void
-				renderButton : (
-					parent : HTMLElement ,
-					options : GsiButtonConfiguration ,
-					clickHandler : Function
-				) => void
-				disableAutoSelect : Function
-				storeCredential : () => {
-					credentials : { id : string; password : string }
-					callback : Function
-				}
-				cancel : () => void
-				onGoogleLibraryLoad : Function
-				revoke : () => {
-					hint : string
-					callback : () => { successful : boolean; error : string }
-				}
-			}
+export function customInputValidator(): ValidatorFn {
+	return (control: AbstractControl): { [key: string]: any } | null => {
+		const inputValue: string = control.value;
+		const errors: { [key: string]: any } = {};
+		if (!/[A-Za-z]/.test(inputValue) || !/\d/.test(inputValue)) {
+			errors['noAlphaNumeric'] = true;
 		}
+		if (inputValue.length < 8) {
+			errors['minLength'] = true;
+		}
+		if (!/[^A-Za-z0-9]/.test(inputValue)) {
+			errors['noSpecialCharacter'] = true;
+		}
+		if (!/[A-Z]/.test(inputValue)) {
+			errors['noUpperCase'] = true;
+		}
+		return Object.keys(errors).length !== 0 ? errors : null;
 	};
-	onGoogleLibraryLoad? : () => void;
 }
-
-declare var google : any;
 
 @Component({
   selector: 'app-register-account',
   templateUrl: './register-account.component.html',
   styleUrls: ['./register-account.component.css', '../authentication.scss'],
   standalone: true,
-  imports: [CommonModule, SharedModule, RouterModule],
+	imports: [CommonModule, SharedModule, RouterModule, TooltipModule, ButtonModule, RippleModule],
 })
 
 export default class RegisterAccountComponent implements OnInit {
 
-	hide : boolean = true;
-	// email : FormControl    = new FormControl( 'info@phoenixcoded.co' , [ Validators.required , Validators.email ] );
-	// password : FormControl = new FormControl( '123456' , [ Validators.required ] );
 
-	protected formGroup : FormGroup;
-
-	loading : boolean = true;
-
-	iframeCreator$ : BehaviorSubject<IframeUtils> = new BehaviorSubject<IframeUtils>( null );
+	changPassState: boolean = true;
+	type_password: 'password' | 'text' = "password";
+	formSave: FormGroup;
+	active_regiter :0|1 = 0;// fomr thường// fomr checkoke
+	type_check_valid: 1 | 2 | 3 = 1;//1 chưa gửi //2:gửi thành công //3:gửi thất bai
 
 	constructor(
-		private title : Title ,
-		private activatedRoute : ActivatedRoute ,
-		private fb : FormBuilder ,
-		private auth : AuthService ,
-		private _renderer2 : Renderer2 ,
-		private router : Router ,
-		private userService : UserService ,
-		@Inject( DOCUMENT ) private _document : Document ,
-		private ngZone : NgZone
-	) {}
-
-	ngOnInit() : void {
-		this.title.setTitle( 'Đăng nhập' );
-		if ( this.auth.isAuthenticated ) {
-			setTimeout( () => this.redirectUser(),200);
-		} else {
-			const _window : Window           = window as Window;
-			_window[ 'onGoogleLibraryLoad' ] = () => {
-				google.accounts.id.initialize( {
-					client_id             : environment.deploy.googleClientId ,
-					callback              : this.handleGoogleCredentialResponse.bind( this ) ,
-					auto_select           : false ,
-					cancel_on_tap_outside : true
-				} );
-				google.accounts!.id.renderButton(
-					document!.getElementById( 'google_sign_in_area' )! ,
-					{
-						width : '100%' ,
-						size  : 'large' ,
-						type  : 'standard' ,
-						shape : 'circle' ,
-						text  : 'signin_with' ,
-						theme : 'filled_blue'
-					}
-				);
-			};
-			this.loading = false;
-		}
+		private fb: FormBuilder,
+		private auth: AuthService,
+		private registerAccountService: RegisterAccountService,
+		private router: Router,
+		private notification: NotificationService
+	) {
+		this.formSave = this.fb.group({
+			username: ['' ,[Validators.required, PhoneNumberValidator]],
+			email: ['', [Validators.required, EmailValidator]],
+			password: ['', [Validators.required,PasswordValidator,customInputValidator()]],
+			display_name: ['', Validators.required],
+			phone: [null, [Validators.required, PhoneNumberValidator, Validators.maxLength(12), Validators.minLength(6)]],
+		});
 	}
 
-	// getErrorMessage() : string {
-	// 	if ( this.username.hasError( 'required' ) ) {
-	// 		return 'You must enter an email';
-	// 	}
-	// 	return this.username.hasError( 'email' ) ? 'Not a valid email' : '';
-	// }
 
-	ngAfterViewInit() : void {
-		const script1 = this._renderer2.createElement( 'script' );
-		script1.src   = `https://accounts.google.com/gsi/client`;
-		script1.async = `true`;
-		script1.defer = `true`;
-		this._renderer2.appendChild( this._document.body , script1 );
+	resetForm() {
+		this.formSave.reset({
+			username: '',
+			email: '',
+			password: '',
+			display_name: '',
+			phone: ''
+		})
 	}
 
-	async handleGoogleCredentialResponse( response : GoogleSignIn ) : Promise<void> {
-		this.loading = true;
-		this.ngZone.run( () => this.checkCreateNewAccount( response ) );
+	ngOnInit(): void {
 	}
 
-	private checkCreateNewAccount( response : GoogleSignIn ) {
-		// This next is for decoding the idToken to an object if you want to see the details.
-		const base64Url : string      = response.credential.split( '.' )[ 1 ];
-		const base64 : string         = base64Url.replace( /-/g , '+' ).replace( /_/g , '/' );
-		const jsonPayload : string    = decodeURIComponent( atob( base64 ).split( '' ).map( function ( c ) {
-			return '%' + ( '00' + c.charCodeAt( 0 ).toString( 16 ) ).slice( -2 );
-		} ).join( '' ) );
-		const payload : GooglePayload = JSON.parse( jsonPayload );
-		const newUser : ConstructUser = {
-			username     : payload.email.replace( /@/gi , '_' ).replace( /\./gi , '_' ) ,
-			display_name : payload.name ,
-			phone        : payload.email ,
-			email        : payload.email ,
-			password     : [ '#1Qw@' , payload.jti || Date.now().toString( 10 ) , '56dOP98#S%^' ].join( '' ).slice( 0 , 9 )
-		};
-		this.userService.create( newUser ).subscribe( {
-			next  : () => this.handleAfterRegisterUser( response ) ,
-			error : () => this.loading = false
-		} );
+	get f(): { [key: string]: AbstractControl<any> } {
+		return this.formSave.controls;
 	}
 
-	private async handleAfterRegisterUser( response : GoogleSignIn ) : Promise<void> {
-		try {
-			const successful : boolean = await this.auth.googleSignIn( response );
-			if ( successful ) {
-				this.redirectUser();
+	btnShowPassWord() {
+		this.type_password = this.type_password === "password" ? "text" : "password";
+	}
+
+	btnRegisterForm() {
+
+		if (this.formSave.valid) {
+			this.type_check_valid = 2;
+			let username = this.f['username'].value?.trim();
+			let display_name = this.f['display_name'].value?.trim();
+			this.f['username'].setValue(username);
+			this.f['display_name'].setValue(display_name);
+			const dataParram: {} = {
+				url: `${location.origin}${this.router.serializeUrl(this.router.createUrlTree(['verification/']))}`
 			}
-			this.loading = false;
-		} catch ( e ) {
-			this.loading = false;
-		}
-	}
 
-	private redirectUser() : void {
-		this.title.setTitle( environment.deploy.title );
-		if ( this.activatedRoute.snapshot.queryParamMap.has( 'returnUrl' ) ) {
-			void this.router.navigate( [ this.activatedRoute.snapshot.queryParamMap.get( 'returnUrl' ) ] );
+			this.registerAccountService.registerAccount(this.formSave.value).pipe(switchMap(prj => {
+				return this.registerAccountService.VerifiCationAccount(prj, dataParram)
+			})).subscribe({
+				next: (data) => {
+					this.type_check_valid = 3;
+					this.active_regiter =1;
+					this.resetForm();
+				}, error: (e) => {
+					this.active_regiter =0;
+
+					this.type_check_valid = 1;
+					const message = e.error.message;
+					let errorMessage = "";
+					for (let key in message) {
+						if (message[key]) {
+							errorMessage += message[key] + ", ";
+						}
+					}
+					errorMessage = errorMessage.slice(0, -2);
+					this.notification.toastError(errorMessage);
+				}
+			})
 		} else {
-			void this.router.navigate( [ 'admin/dashboard' ] );
+			this.notification.toastWarning('Vui lòng nhập đủ thông tin');
 		}
+
+	}
+	btnLogin() {
+		this.router.navigate(['login']);
 	}
 
-	ngOnDestroy() : void {
-		this.iframeCreator$.complete();
+	exitForm(){
+		this.active_regiter = 0;
+		this.type_check_valid = 1;
+		this.resetForm();
 	}
 }

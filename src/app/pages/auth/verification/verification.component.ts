@@ -2,17 +2,19 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import { RegisterAccountService } from '@service/domitory-services/register-account.service';
+// import { RegisterAccountService } from '@service/domitory-services/register-account.service';
 import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
+import {RippleModule} from "primeng/ripple";
+import {RegisterAccountService} from "@service/thuctapsinh/register-account.service";
 
 @Component({
   selector: 'app-verification',
   templateUrl: './verification.component.html',
   styleUrls: ['./verification.component.css'],
   standalone: true,
-  imports: [CommonModule, TooltipModule, ReactiveFormsModule, SharedModule, ButtonModule],
+  imports: [CommonModule, TooltipModule, ReactiveFormsModule, SharedModule, ButtonModule, RippleModule],
 })
 export default class VerificationComponent implements OnInit {
   type_check_valid:1|2|3=1;
