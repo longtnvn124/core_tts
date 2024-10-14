@@ -1,8 +1,8 @@
 import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from "@angular/core";
 import {FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {OvicForm, OvicTableStructure } from "@model/ovic-models";
-import { TnBank } from "@model/tn-bank";
-import { TnMonHoc } from "@model/tn-mon-hoc";
+// import { TnBank } from "@model/tn-bank";
+// import { TnMonHoc } from "@model/tn-mon-hoc";
 
 import { TYPE_BANK } from "@utilities/syscats";
 import {Paginator, PaginatorModule} from "primeng/paginator";
@@ -15,9 +15,9 @@ import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {InputTextModule} from "primeng/inputtext";
 import {Helper} from "@utilities/helper";
 
-interface FormBank extends OvicForm {
-  object: TnBank;
-}
+// interface FormBank extends OvicForm {
+//   // object: TnBank;
+// }
 
 @Component({
   selector: "app-danh-sach-bank",
@@ -46,12 +46,10 @@ export class DanhSachBankComponent implements OnInit {
   @ViewChild("fromAddChild", { static: true }) templateChild: TemplateRef<any>;
 
 
-  dmBank            : TnBank[];
-  listBankChildren  : TnBank[] = [];
   searchBank        : string;
   formData          : FormGroup;
   slugIsValid       :boolean= true;
-  dmMonHoc          : TnMonHoc[];
+
   typeTest          : { type: "THI"; title: "Thi" }[] = [{ type: "THI", title: "Thi" }];
   typeBank          :{label:string,value:string}[]   = TYPE_BANK;
   isAdmin           :boolean = false;
@@ -136,17 +134,16 @@ export class DanhSachBankComponent implements OnInit {
   index               :number = 1;
   btn_checkAdd        : "Lưu lại" | "Cập nhật";
   recordsTotal        :number = 0;
-  bankSelected        : TnBank;
+
   isLoading           : boolean = false;
   menuName            : "menu_nganhang_cauhoi";
   menuNameChild       : "menu_themchuong_nganhang_cauhoi";
   bankChild           : string = "";
-  bankChildSelected   : TnBank;
   btnActionChild      : 'add' | 'edit' = 'add';
   // rows                :number = this.themeSettingsService.settings.rows;
   subscription        :Subscription = new Subscription();
-  private OBSERVE_PROCESS_FORM_DATA = new Subject<FormBank>();
-  formActive          : FormBank;
+  // private OBSERVE_PROCESS_FORM_DATA = new Subject<FormBank>();
+  // formActive          : FormBank;
 
 
   constructor() {}

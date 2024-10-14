@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ClassService } from './class.service';
+import { DmLoaiVanbanService } from './dm-loai-vanban.service';
 
-describe('ClassService', () => {
-  let service: ClassService;
+describe('DmLoaiVanbanService', () => {
+  let service: DmLoaiVanbanService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ClassService);
+    service = TestBed.inject(DmLoaiVanbanService);
   });
 
   it('should be created', () => {

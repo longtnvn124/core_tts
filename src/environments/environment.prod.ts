@@ -16,7 +16,7 @@ export const environment : Environment = {
 		driverFile: server + 'luyenthi-thpt/api/driver/',
 		aws: server + 'luyenthi-thpt/api/aws/',
 		// X_APP_ID: '60A111A9-09EE-48B6-9B2D-6CCB70F56B1F'
-		X_APP_ID: '0645451e-3396-41eb-8d02-ae39cb030cdd'
+		X_APP_ID: '64c9a192-cc0e-4198-acb8-2188dbb472fa'
 	}
 
 	// deploy : {

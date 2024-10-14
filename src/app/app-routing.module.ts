@@ -33,6 +33,11 @@ const routes: Routes = [
         loadComponent: () => import('./pages/admin/dashboard/dashboard.component'),
         data: { title: 'Dashboard' },
       },
+      {
+        path: 'danh-muc',
+        loadChildren: () => import('./pages/admin/danhmuc/danhmuc.module').then((m) => m.DanhmucModule),
+        data: { title: 'danh muc' },
+      },
 
       {
         path: 'he-thong',
