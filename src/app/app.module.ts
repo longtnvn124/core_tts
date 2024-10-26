@@ -14,6 +14,7 @@ import { getSaver , SAVER } from './providers/saver.provider';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TableLoaderComponent } from './templates/table-loader/table-loader.component';
 import { TableModule } from 'primeng/table';
+
 // import { QlCaThiComponent } from './pages/admin/ql-ca-thi/ql-ca-thi.component';
 
 // import { OvicEditorComponent } from './templates/ovic-editor/ovic-editor.component';

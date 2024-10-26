@@ -6378,3 +6378,143 @@ body .ovic-vertical__inputs--layout-2 {
 .ovic-btn-inrow .btn.ovic-btn-lock {
 	cursor: pointer !important;
 }
+
+/*-----------------------------------code by long ---------------------*/
+.search-block {
+	display: flex;
+	height: 38px;
+	margin-left: auto;
+}
+
+.search-block input{
+	height:100%;
+}
+
+.ovic-side-navigation-content__foot__notice mark {
+	background: transparent;
+	color: var(--danger);
+	padding: 0;
+}
+
+.ovic-vertical__inputs .form-row .ovic-mark {
+	color: red;
+}
+
+.ovic-side-navigation-content {
+	display: flex;
+	flex-direction: column;
+	height: calc(var(--max-screen-height, 100vh) - var(--side-navigation-offset-top, 60px));
+}
+
+.ovic-side-navigation-content__head {
+	height: 60px;
+	min-height: 60px;
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #d5d5d5;
+	padding: 0 10px;
+	justify-content: space-between;
+}
+
+.ovic-side-navigation-content__head__title {
+	margin: 0 !important;
+	font-size: 17px !important;
+	font-weight: 500 !important;
+	color: #333333;
+	text-transform: uppercase;
+}
+
+.ovic-side-navigation-content__body {
+	flex: 1 1 auto;
+	overflow-x: hidden;
+	overflow-y: auto;
+	max-height: calc(var(--max-screen-height, 100vh) - var(--side-navigation-offset-top, 60px) - 120px);
+	padding: 10px;
+}
+.ovic-side-navigation-content__body.--no-footer {
+	max-height: calc(var(--max-screen-height, 100vh) - var(--side-navigation-offset-top, 60px) - 60px);
+}
+
+.p-dropdown-100 .p-dropdown,
+.ovic-vertical__inputs .form-row .p-dropdown {
+	width: 100%;
+}
+
+.ovic-vertical__inputs input {
+	width: 100%;
+	padding: 0px 10px;
+	line-height: 28px;
+	border-radius: 6px;
+	box-shadow: none;
+	height: 38px;
+	border: 1px solid #c8c8c8;
+	outline: none;
+	font-size: 14px;
+}
+
+.ovic-vertical__inputs .form-row label,
+.ovic-profiles .form-row label {
+	display: block;
+	margin: 0;
+	vertical-align: bottom;
+	font-size: 14px;
+	line-height: 42px;
+	width: 125px;
+	height: 42px;
+	font-weight: 500;
+	width: auto;
+}
+
+.ovic-vertical__inputs .form-row textarea,
+.ovic-vertical__inputs .form-row textarea.p-inputtext,
+.ovic-profiles .form-row textarea {
+	display: inline-block;
+	border: 1px solid #ced4da;
+	border-radius: 4px;
+	box-shadow: none;
+	outline: none;
+	padding: 10px 10px;
+	font-size: 14px;
+	line-height: 24px;
+	width: calc(100% - 125px);
+	height: auto;
+}
+
+.ovic-vertical__inputs .form-row {
+	flex-direction: column;
+}
+
+.ovic-vertical__inputs .form-row textarea {
+	width: 100% !important;
+}
+
+.form-row__btn-switch {
+	align-items: center;
+	display: flex;
+	background: #ffffff;
+	border: 1px solid #ced4da;
+	color: #495057;
+	margin: 0;
+	padding: 10px;
+	line-height: 1;
+	font-size: 13px;
+	font-weight: 400;
+	outline: none !important;
+	box-shadow: none !important;
+	border-radius: 6px 0 0 6px;
+}
+
+.ovic-side-navigation-content__foot {
+	height: 60px;
+	min-height: 60px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	border-top: 1px solid #d5d5d5;
+	padding: 10px;
+}
+
+.dropdown-header-table .p-dropdown {
+	margin-left: 5px;
+	height: 38px;
+}

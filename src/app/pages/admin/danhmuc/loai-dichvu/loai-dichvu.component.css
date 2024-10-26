@@ -1,4 +1,4 @@
-.status-active {
+.status-active{
     height: 24px;
     min-width: 24px;
     line-height: 0;
@@ -18,8 +18,7 @@
     color: #118d57;
     background-color: #22c55e29;
 }
-
-.status-inactive {
+.status-inactive{
     height: 24px;
     min-width: 24px;
     line-height: 0;
