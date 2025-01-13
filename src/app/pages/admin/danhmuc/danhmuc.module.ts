@@ -15,6 +15,7 @@ import { LoaiHosoComponent } from './loai-hoso/loai-hoso.component';
     LoaiVanbanComponent,
     LoaiHosoComponent,
 
+
   ],
   imports: [
     CommonModule,
