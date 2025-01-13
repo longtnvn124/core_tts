@@ -1,58 +1,150 @@
-<div class="auth-main position-relative">
-    <div class="auth-wrapper version-1">
-        <div class="auth-form">
-            <div class="auth-background">
-                <div class="yellow-circle"></div>
-                <div class="red-circle"></div>
-            </div>
-            <div class="main-form intro-y">
-                <app-card [showHeader]="false" class="auth-form-card" [padding]="40">
-                    <div class="d-flex flex-column align-items-center text-center m-b-20">
-                        <!-- <img src="assets/images/client/ghg-vietnam/logo.png" style="height: auto;width: 90px;" alt="logo"/> -->
-                        <img src="assets/images/client/logo-tnu.png" style="height: auto;width: 90px;" alt="logo"/>
-                        <span class="fw-bold mt-2" style="font-size: 24px;">Hệ thống quản lý luyện thi THPT DHTN</span>
-                    </div>
-                    <h4 class="text-center m-b-25 f-22 f-w-700 f-roboto">Đăng nhập</h4>
-                    <div class="text-start">
-                        <form>
-                        <label class="f-15 f-w-500 f-roboto">Tài khoản</label>
-                        <mat-form-field appearance="outline" class="w-100 m-t-5">
-                            <input class="f-roboto f-15" matInput [formControl]="username" required placeholder="Tên đăng nhập hoặc email" autocomplete="username"/>
-                        </mat-form-field>
-                        <label class="f-15 f-w-500 f-roboto">Mật khẩu</label>
-                        <mat-form-field appearance="outline" class="w-100 m-t-5">
-                            <input class="f-roboto f-15" matInput [formControl]="password" placeholder="Mật khẩu đăng nhập" [type]="hide ? 'password' : 'text'"  (keydown.enter)="loginWithUserPassword()" autocomplete="current-password"/>
-                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                                <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-                            </button>
-                        </mat-form-field>
-                    </form>
-                    </div>
-<!--                    <div class="check-me">-->
-<!--                        <mat-checkbox class="float-start" [checked]="true" color="primary">Remember me?</mat-checkbox>-->
-<!--                        <a class="f-w-400 f-14 text-primary-500 m-b-0" href="javascript:" routerLink="/auth/forget-password">Forgot Password </a>-->
-<!--                    </div>-->
-                    <div class="grid">
-                        <button  (click)="loginWithUserPassword()" [disabled]="formGroup.invalid" mat-flat-button color="primary" class="b-rad-20 m-t-15 p-10">Đăng nhập</button>
-                    </div>
-                    <div class="separator">
+<div class="row">
+  <div class="col-md-5 overflow-auto" style="height: 100%; overflow: hidden">
+    <div class="auth-main position-relative">
+      <div class="main-form intro-y">
+        <div class="auth-form-card">
+          <div class="d-flex flex-column align-items-center text-center m-b-20">
+            <!-- <img src="assets/images/client/ghg-vietnam/logo.png" style="height: auto;width: 90px;" alt="logo"/> -->
+            <img
+              src="assets/images/client/logo-blue-and-orange.png"
+              style="height: auto; width: 150px"
+              alt="logo"
+            />
+            <span class="fw-bold mt-2" style="font-size: 30px"
+              >Thư viện số Archival</span
+            >
+            <p class="fw-bold mt-2" style="font-size: 15px">
+              Imagine all of these books in digital form
+            </p>
+          </div>
+          <hr />
+          <h4 class="text-center m-b-25 f-24">ĐĂNG NHẬP</h4>
+          <div class="text-start">
+            <form>
+              <label class="f-16 f-w-500 f-roboto">Tài khoản</label>
+              <mat-form-field appearance="outline" class="w-100 m-t-5">
+                <input
+                  class="f-roboto f-16"
+                  matInput
+                  [formControl]="username"
+                  required
+                  placeholder="Tên đăng nhập hoặc email"
+                  autocomplete="username"
+                />
+              </mat-form-field>
+              <label class="f-16 f-w-500 f-roboto">Mật khẩu</label>
+              <mat-form-field appearance="outline" class="w-100 m-t-5">
+                <input
+                  class="f-roboto f-16"
+                  matInput
+                  [formControl]="password"
+                  placeholder="Mật khẩu đăng nhập"
+                  [type]="hide ? 'password' : 'text'"
+                  (keydown.enter)="loginWithUserPassword()"
+                  autocomplete="current-password"
+                />
+                <button
+                  mat-icon-button
+                  matSuffix
+                  (click)="hide = !hide"
+                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide"
+                >
+                  <mat-icon>{{
+                    hide ? "visibility_off" : "visibility"
+                  }}</mat-icon>
+                </button>
+              </mat-form-field>
+            </form>
+          </div>
+          <!--                    <div class="check-me">-->
+          <!--                        <mat-checkbox class="float-start" [checked]="true" color="primary">Remember me?</mat-checkbox>-->
+          <!--                        <a class="f-w-400 f-14 text-primary-500 m-b-0" href="javascript:" routerLink="/auth/forget-password">Forgot Password </a>-->
+          <!--                    </div>-->
+          <div class="grid">
+            <button
+              (click)="loginWithUserPassword()"
+              [disabled]="formGroup.invalid"
+              mat-flat-button
+              color="primary"
+              class="b-rad-20 m-t-15 p-10"
+            >
+              Đăng nhập
+            </button>
+          </div>
+          <!-- <div class="separator">
                         <span>OR</span>
                     </div>
-                    
-                    
-                    <div class="google-sign-in-area d-flex justify-content-center" id="google_sign_in_area"></div>
-                    <div class="d-flex justify-content-center align-items-center m-t-30">
-                        <a href="javascript:" class="link-primary f-w-400 f-15 f-roboto text-primary-500 m-b-0 mr-2"  routerLink="/auth/forget-password"><i class="ti ti-lock f-18"></i> Bạn quên mật khẩu?</a>
-                        <a href="javascript:" class="link-primary f-w-400 f-15 f-roboto text-primary-500 m-b-0" routerLink="/auth/register-account">Bạn chưa có tài khoản</a>
+
+
+                    <div class="google-sign-in-area d-flex justify-content-center" id="google_sign_in_area">
+                    </div> -->
+          <div class="d-flex justify-content-center align-items-center m-t-30">
+            <a
+              href="javascript:"
+              class="link-primary f-w-400 f-15 f-roboto text-primary-500 m-b-0 mr-2"
+              routerLink="/auth/forget-password"
+              ><i class="ti ti-lock f-18"></i> Bạn quên mật khẩu?</a
+            >
+            <a
+              href="javascript:"
+              class="link-primary f-w-400 f-15 f-roboto text-primary-500 m-b-0"
+              routerLink="/auth/register-account"
+              >Bạn chưa có tài khoản?</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="auth-wrapper version-1">
+                
+                <div class="auth-form">
+                    <div class="auth-background">
+                        <div class="yellow-circle"></div>
+                        <div class="red-circle"></div>
                     </div>
-                </app-card>
-            </div>
-        </div>
+                    
+                </div>
+            </div> -->
     </div>
-    <div class="main-form__wrap-loading position-absolute" *ngIf="loading">
-        <div class="ictu-indicator-loading-panel">
-            <span class="ictu-indicator-loading-panel__label">Loading...</span>
-            <mat-progress-bar class="loader" mode="indeterminate" value="40"></mat-progress-bar>
+  </div>
+  <div class="col-md-7">
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="/assets/images/authentication/11.jpg" alt="" />
         </div>
+        <div class="swiper-slide">
+          <img src="/assets/images/authentication/22.jpg" alt="" />
+        </div>
+        <div class="swiper-slide">
+          <img src="/assets/images/authentication/33.jpg" alt="" />
+        </div>
+      </div>
+      <!-- If we need pagination -->
+      <div class="swiper-pagination"></div>
+
+      <!-- If we need navigation buttons -->
+      <!-- <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div> -->
+
+      <!-- If we need scrollbar -->
+      <!-- <div class="swiper-scrollbar"></div> -->
     </div>
+    <!-- <div class="swiper-text">
+            <h3>Tận hưởng chuyến đi</h3>
+            <h4>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis autem quo id eum, libero voluptatum exercitationem omnis animi repellendus odio eos officiis nesciunt. Sequi, nihil deserunt commodi alias nam dolores. </h4>
+        </div> -->
+  </div>
+</div>
+
+<div class="main-form__wrap-loading position-absolute" *ngIf="loading">
+  <div class="ictu-indicator-loading-panel">
+    <span class="ictu-indicator-loading-panel__label">Loading...</span>
+    <mat-progress-bar
+      class="loader"
+      mode="indeterminate"
+      value="40"
+    ></mat-progress-bar>
+  </div>
 </div>

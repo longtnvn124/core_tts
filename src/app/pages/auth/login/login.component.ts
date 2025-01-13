@@ -4,6 +4,7 @@ import { CommonModule , DOCUMENT } from '@angular/common';
 import { AbstractControl , FormBuilder , FormControl , FormGroup , Validators } from '@angular/forms';
 import { ActivatedRoute , Router , RouterModule } from '@angular/router';
 
+
 // project import
 import { SharedModule } from '@sharedModule';
 import { AuthService } from '@service/core/auth.service';
@@ -16,6 +17,13 @@ import { IframeUtils } from '@pages/auth/login/iframe-utils';
 import { tokenGetter } from '../../../app.module';
 import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
+
+import Swiper from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
+// import 'swiper/css';
+// import 'swiper/css/navigation';
+// import 'swiper/css/pagination';
+
 
 declare var google : any;
 
@@ -159,6 +167,7 @@ export default class LoginComponent implements OnInit , AfterViewInit , OnDestro
 
 	iframeCreator$ : BehaviorSubject<IframeUtils> = new BehaviorSubject<IframeUtils>( null );
 
+
 	constructor(
 		private title : Title ,
 		private activatedRoute : ActivatedRoute ,
@@ -168,7 +177,9 @@ export default class LoginComponent implements OnInit , AfterViewInit , OnDestro
 		private router : Router ,
 		private userService : UserService ,
 		@Inject( DOCUMENT ) private _document : Document ,
-		private ngZone : NgZone
+		private ngZone : NgZone,
+	
+		
 	) {
 		this.formGroup = this.fb.group( {
 			username : [ '' , [ Validators.required , Validators.maxLength( 200 ) ] ] ,
@@ -176,7 +187,30 @@ export default class LoginComponent implements OnInit , AfterViewInit , OnDestro
 		} );
 	}
 
+
+
+	swiper : Swiper;
 	ngOnInit() : void {
+		 this.swiper = new Swiper('.swiper', {
+			rewind: true,
+			spaceBetween: 30,
+			centeredSlides: true,
+			autoplay: {
+			  delay: 3000,
+			  disableOnInteraction: false,
+			},
+			pagination: {
+			  el: ".swiper-pagination",
+			  clickable: true,
+			},
+
+			// navigation: {
+			// 	nextEl: '.swiper-button-next',
+			// 	prevEl: '.swiper-button-prev',
+			//   },
+			  
+		  });
+
 		this.title.setTitle( 'Đăng nhập' );
 		if ( this.auth.isAuthenticated ) {
 			setTimeout( () => this.redirectUser(),200);
@@ -203,7 +237,16 @@ export default class LoginComponent implements OnInit , AfterViewInit , OnDestro
 			};
 			this.loading = false;
 		}
+
+		// this.photoService.getImages().then((images) => {
+        //     this.images = images;
+        // });
+
+
 	}
+
+
+
 
 	get username() : FormControl {
 		return <FormControl<any>> this.f[ 'username' ];

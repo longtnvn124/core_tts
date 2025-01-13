@@ -1,13 +1,13 @@
 // angular import
-import { Component, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ViewChild } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
 // project import
-import { SharedModule } from '@sharedModule';
-import { ChartDB } from '../../../fake-data/chartDB';
+import { SharedModule } from "@sharedModule";
+import { ChartDB } from "../../../fake-data/chartDB";
 
 // third party
-import { NgApexchartsModule } from 'ng-apexcharts';
+import { NgApexchartsModule } from "ng-apexcharts";
 import {
   ApexAxisChartSeries,
   ApexNonAxisChartSeries,
@@ -23,14 +23,14 @@ import {
   ApexStroke,
   ApexGrid,
   ApexLegend,
-  ApexResponsive
-} from 'ng-apexcharts';
-import { CardComponent } from '@theme/components/card/card.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatTooltipModule } from '@angular/material/tooltip';
+  ApexResponsive,
+} from "ng-apexcharts";
+import { CardComponent } from "@theme/components/card/card.component";
+import { MatButtonModule } from "@angular/material/button";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries | ApexNonAxisChartSeries;
@@ -51,16 +51,24 @@ export type ChartOptions = {
 };
 
 @Component({
-  selector: 'app-dashboard',
+  selector: "app-dashboard",
   standalone: true,
-  imports: [CommonModule, CardComponent, MatButtonModule, MatMenuModule, MatProgressBarModule, MatTabsModule, MatTooltipModule, NgApexchartsModule],
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  imports: [
+    CommonModule,
+    CardComponent,
+    MatButtonModule,
+    MatMenuModule,
+    MatProgressBarModule,
+    MatTabsModule,
+    MatTooltipModule,
+    NgApexchartsModule,
+  ],
+  templateUrl: "./dashboard.component.html",
+  styleUrls: ["./dashboard.component.scss"],
 })
 export default class DashboardComponent {
-
   // public props
-  @ViewChild('chart') chart!: ChartComponent;
+  @ViewChild("chart") chart!: ChartComponent;
   earningChart: Partial<ChartOptions>;
   pageViewChart: Partial<ChartOptions>;
   totalTaskChart: Partial<ChartOptions>;
@@ -74,9 +82,9 @@ export default class DashboardComponent {
   chartDB: any;
 
   // graph color change with theme color mode change
-  preset = ['#4680FF'];
-  monthlyColor = ['#4680FF', '#8996a4'];
-  incomeColors = ['#4680FF', '#E58A00', '#2CA87F', '#b5ccff'];
+  preset = ["#4680FF"];
+  monthlyColor = ["#4680FF", "#8996a4"];
+  incomeColors = ["#4680FF", "#E58A00", "#2CA87F", "#b5ccff"];
 
   // constructor
   constructor() {
@@ -89,7 +97,7 @@ export default class DashboardComponent {
       pageViewChart,
       monthlyRevenueChart,
       pendingTasksChart,
-      totalIncomeChart
+      totalIncomeChart,
     } = this.chartDB;
     this.earningChart = earningChart;
     this.pageViewChart = pageViewChart;
@@ -104,95 +112,94 @@ export default class DashboardComponent {
   // public method
   project = [
     {
-      title: 'Invoice Generator'
+      title: "Kiểm duyệt sách được thêm",
     },
     {
-      title: 'Package Upgrades'
+      title: "Xem đánh giá",
     },
     {
-      title: 'Figma Auto Layout'
-    }
+      title: "Đồng bộ thư viện TNU",
+    },
   ];
 
   List_transaction = [
     {
-      icon: 'AI',
-      name: 'Apple Inc.',
-      time: '#ABLE-PRO-T00232',
-      amount: '$210,000',
-      amount_position: 'ti ti-arrow-down-left',
-      percentage: '10.6%',
-      amount_type: 'text-warn-500'
+      icon: "AI",
+      name: "Apple Inc.",
+      time: "#ABLE-PRO-T00232",
+      amount: "$210,000",
+      amount_position: "ti ti-arrow-down-left",
+      percentage: "10.6%",
+      amount_type: "text-warn-500",
     },
     {
-      icon: 'SM',
-      tooltip: '10,000 Tracks',
-      name: 'Spotify Music',
-      time: '#ABLE-PRO-T10232',
-      amount: '- 10,000',
-      amount_position: 'ti ti-arrow-up-right',
-      percentage: '30.6%',
-      amount_type: 'text-success-500'
+      icon: "SM",
+      tooltip: "10,000 Tracks",
+      name: "Spotify Music",
+      time: "#ABLE-PRO-T10232",
+      amount: "- 10,000",
+      amount_position: "ti ti-arrow-up-right",
+      percentage: "30.6%",
+      amount_type: "text-success-500",
     },
     {
-      icon: 'MD',
-      bg: 'text-primary-500 bg-primary-50',
-      tooltip: '143 Posts',
-      name: 'Medium',
-      time: '06:30 pm',
-      amount: '-26',
-      amount_position: 'ti ti-arrows-left-right',
-      percentage: '5%',
-      amount_type: 'text-warning-500'
+      icon: "MD",
+      bg: "text-primary-500 bg-primary-50",
+      tooltip: "143 Posts",
+      name: "Medium",
+      time: "06:30 pm",
+      amount: "-26",
+      amount_position: "ti ti-arrows-left-right",
+      percentage: "5%",
+      amount_type: "text-warning-500",
     },
     {
-      icon: 'U',
-      tooltip: '143 Posts',
-      name: 'Uber',
-      time: '08:40 pm',
-      amount: '+210,000',
-      amount_position: 'ti ti-arrow-up-right',
-      percentage: '10.6%',
-      amount_type: 'text-success-500'
+      icon: "U",
+      tooltip: "143 Posts",
+      name: "Uber",
+      time: "08:40 pm",
+      amount: "+210,000",
+      amount_position: "ti ti-arrow-up-right",
+      percentage: "10.6%",
+      amount_type: "text-success-500",
     },
     {
-      icon: 'OC',
-      bg: 'text-warning-500 bg-warning-50',
-      tooltip: '143 Posts',
-      name: 'Ola Cabs',
-      time: '07:40 pm',
-      amount: '+210,000',
-      amount_position: 'ti ti-arrow-up-right',
-      percentage: '10.6%',
-      amount_type: 'text-success-500'
-    }
+      icon: "OC",
+      bg: "text-warning-500 bg-warning-50",
+      tooltip: "143 Posts",
+      name: "Ola Cabs",
+      time: "07:40 pm",
+      amount: "+210,000",
+      amount_position: "ti ti-arrow-up-right",
+      percentage: "10.6%",
+      amount_type: "text-success-500",
+    },
   ];
 
   income_card = [
     {
-      background: 'bg-primary-500',
-      item: 'Income',
-      value: '$23,876',
-      number: '+$763,43'
+      background: "bg-primary-500",
+      item: "Income",
+      value: "$23,876",
+      number: "+$763,43",
     },
     {
-      background: 'bg-warning-500',
-      item: 'Rent',
-      value: '$23,876',
-      number: '+$763,43'
+      background: "bg-warning-500",
+      item: "Rent",
+      value: "$23,876",
+      number: "+$763,43",
     },
     {
-      background: 'bg-success-500',
-      item: 'Download',
-      value: '$23,876',
-      number: '+$763,43'
+      background: "bg-success-500",
+      item: "Download",
+      value: "$23,876",
+      number: "+$763,43",
     },
     {
-      background: 'bg-primary-200',
-      item: 'Views',
-      value: '$23,876',
-      number: '+$763,43'
-    }
+      background: "bg-primary-200",
+      item: "Views",
+      value: "$23,876",
+      number: "+$763,43",
+    },
   ];
-
 }

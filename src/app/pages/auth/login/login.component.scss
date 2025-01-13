@@ -3,47 +3,107 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px white inset !important;
-    font-size: 15px;
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  font-size: 15px;
 }
 
 ::ng-deep {
-    .mat-mdc-form-field-infix {
-        --mdc-field-padding: 13px;
-        min-height: auto;
-        padding-top: var(--mdc-field-padding) !important;
-        padding-bottom: var(--mdc-field-padding) !important;
-    }
+  .mat-mdc-form-field-infix {
+    --mdc-field-padding: 13px;
+    min-height: auto;
+    padding-top: var(--mdc-field-padding) !important;
+    padding-bottom: var(--mdc-field-padding) !important;
+  }
 }
 
 .main-form__wrap-loading {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(255, 255, 255, .8);
-    z-index: 100;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 100;
 }
 
 .auth-main {
-    .auth-wrapper {
-        .separator {
-            margin: 15px 0;
-        }
-
-        #google_sign_in_area {
-            height: 40px;
-        }
+  .auth-wrapper {
+    .separator {
+      margin: 15px 0;
     }
+
+    #google_sign_in_area {
+      height: 40px;
+    }
+  }
 }
 
 .auth-form {
-    // background: #fff url("../../../../../assets/videos/video-thumb.png") 50% 50%;
-    background: #fff url("../../../../assets/images/authentication/video-thumb.png") 50% 50%;
+  // background: #fff url("../../../../../assets/videos/video-thumb.png") 50% 50%;
+  // background: url("../../../../assets/images/background-login-5.jpg") no-repeat;
+  background-size: cover;
+  //   background-color: #cccc;
+  // background-position: center;
+  // background-repeat: no-repeat;
+  // height: 100vh;
+  // width: 100vw;
+  padding: 20px;
+}
+.swiper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.swiper-text {
+  position: relative;
+  z-index: 1;
+}
+
+.row {
+  background-color: rgba(255, 255, 255, 0.877);
+  //background-image: url('https://travel.nicdark.com/tourism-wordpress-theme/wp-content/uploads/sites/4/2023/04/package-05-1.jpg') ;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //border-radius: 20px;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  //   border-radius: 20px;
+}
+
+.col-md-7 {
+  padding: 0;
+}
+
+.col-md-5 {
+  padding: 0;
+  overflow-y: auto;
+}
+
+.swiper-text h3 {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.auth-form-card {
+  padding: 25px 45px;
 }

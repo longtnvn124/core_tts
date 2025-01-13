@@ -8,6 +8,12 @@
   background: #fff;
   border: 1px solid #cccccc;
   border-radius: 10px;
+  /* position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 480px;
+  width: 100%; */
 }
 
 .register-head-div-1 {
@@ -78,7 +84,10 @@
 
 .ovic-vertical__inputs .register-form-row.err-input textarea,
 .ovic-vertical__inputs .register-form-row.err-input input,
-.ovic-vertical__inputs .register-form-row p-dropdown.ng-touched.ng-invalid .p-dropdown,
+.ovic-vertical__inputs
+  .register-form-row
+  p-dropdown.ng-touched.ng-invalid
+  .p-dropdown,
 .ovic-vertical__inputs .register-form-row input.ng-touched.ng-invalid,
 .ovic-vertical__inputs .register-form-row.err-input select,
 .ovic-vertical__inputs .register-form-row.err-input input.ng-touched,
@@ -110,7 +119,6 @@
   .register-head-div-1 {
     border: none;
   }
-
 }
 
 .register-footer {
@@ -159,12 +167,14 @@
 }
 /*-------------------------end css ----------------------------*/
 
-
-.home-thpt-register{
-  width:100%;
-  height:100%;
-  display:flex;
+.home-thpt-register {
+  width: 100%;
+  height: 100%;
+  display: flex;
   background-repeat: no-repeat;
+  background-size: cover;
+  background: #fff url("../../../../assets/images/authentication/66.jpg")
+    no-repeat center center fixed; /* Center and fixed */
   background-size: cover;
 }
 .btn-forgot-password {
@@ -182,27 +192,27 @@
 .btn-forgot-password:hover {
   color: var(--primary);
 }
-.error-password-checker{
+.error-password-checker {
   font-size: 13px;
   color: tomato;
-  padding-left:4px;
+  padding-left: 4px;
 }
 
-.regiter-true{
-  width:100%;
-  display:flex;
+.regiter-true {
+  width: 100%;
+  display: flex;
   flex-direction: column;
   padding: 20px 10px;
   justify-content: center;
   align-items: center;
-  color: #4CAF50;
+  color: #4caf50;
   font-weight: 500;
 }
-.regiter-true i{
+.regiter-true i {
   font-size: 4rem;
 }
-.regiter-true__title{
-  padding-top:10px;
+.regiter-true__title {
+  padding-top: 10px;
   font-size: 16px;
 }
 .test-member__from__col__span {
@@ -212,17 +222,15 @@
   font-size: 11px;
   background-color: #ffffff;
   line-height: 1.3;
-  color: #FF0000FF;
+  color: #ff0000ff;
   padding: 0 5px;
   left: 0;
 }
 
-.div-err{
+.div-err {
   line-height: 20px;
   background: #f5f4e3;
   border-left: 1px solid #f54b4b;
   margin-top: 12px;
   padding: 2px 1px;
 }
-
-
