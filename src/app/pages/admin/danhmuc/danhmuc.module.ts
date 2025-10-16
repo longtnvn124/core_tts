@@ -1,26 +1,23 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { DanhmucRoutingModule } from './danhmuc-routing.module';
+import {DanhmucRoutingModule} from './danhmuc-routing.module';
 import {RippleModule} from "primeng/ripple";
 import {ButtonModule} from "primeng/button";
-import { LoaiVanbanComponent } from './loai-vanban/loai-vanban.component';
-import { LoaiHosoComponent } from './loai-hoso/loai-hoso.component';
-
+import {LoaiHosoComponent} from './loai-hoso/loai-hoso.component';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
-  declarations: [
-
-    LoaiVanbanComponent,
-    LoaiHosoComponent,
-
-  ],
-  imports: [
-    CommonModule,
-    DanhmucRoutingModule,
-    RippleModule,
-    ButtonModule
-  ]
+    declarations: [],
+    imports: [
+        CommonModule,
+        DanhmucRoutingModule,
+        RippleModule,
+        ButtonModule,
+        FormsModule,
+        LoaiHosoComponent
+    ]
 })
-export class DanhmucModule { }
+export class DanhmucModule {
+}

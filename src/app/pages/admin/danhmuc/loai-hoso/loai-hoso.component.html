@@ -1,1 +1,136 @@
-<p>loai-hoso works!</p>
+<div class="d-flex flex-column">
+    <!-- SEARCH -->
+    <div class="mb-3 d-flex align-items-center">
+        <input
+                type="text"
+                [(ngModel)]="textSearch"
+                placeholder="Nhập từ khoá tìm kiếm..."
+                class="form-control w-25 mr-2"
+        />
+        <button
+                pButton
+                pRipple
+                label="Tìm kiếm"
+                icon="pi pi-search"
+                class="p-button-primary"
+                (click)="onSearch()"
+        ></button>
+
+        <button
+                pButton
+                pRipple
+                label="Thêm mới"
+                icon="pi pi-plus"
+                class="p-button-success ml-2"
+                (click)="addNew()"
+        ></button>
+    </div>
+
+    <!-- DATA TABLE -->
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th class="text-center ovic-w-50px">STT</th>
+            <th class="text-left">Tên loại hồ sơ</th>
+            <th class="text-center">Thao tác</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngIf="listData && listData.length > 0; else noData">
+            <tr *ngFor="let item of listData">
+                <td class="text-center">{{ item['_index'] }}</td>
+                <td>
+                    <div><strong>{{ item.title }}</strong></div>
+                    <div>{{ item.des }}</div>
+                </td>
+                <td class="text-center">
+                    <button
+                            pButton
+                            pRipple
+                            icon="pi pi-pencil"
+                            class="p-button-warning btn-by-item"
+                            (click)="edit(item)"
+                    ></button>
+                    <button
+                            pButton
+                            pRipple
+                            icon="pi pi-trash"
+                            class="mx-1 p-button-danger btn-by-item"
+                            (click)="delete(item)"
+                    ></button>
+                </td>
+            </tr>
+        </ng-container>
+
+        <ng-template #noData>
+            <tr>
+                <td colspan="3" class="text-center">Không có dữ liệu</td>
+            </tr>
+        </ng-template>
+        </tbody>
+    </table>
+</div>
+
+<!-- SIDEBAR FORM -->
+<ng-template #formSidebar>
+    <div class="ovic-side-navigation-content">
+        <div class="ovic-side-navigation-content__head">
+            <h4 class="ovic-side-navigation-content__head__title">
+                {{ formTitle }}
+            </h4>
+            <button
+                    (click)="closeForm()"
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-times"
+                    class="p-button-rounded p-button-danger p-button-text close ovic-side-navigation-content__head__btn-close"
+            ></button>
+        </div>
+
+        <div class="ovic-side-navigation-content__body ovic-scroll-style">
+            <form [formGroup]="formData" autocomplete="off" class="p-3">
+                <div class="form-group">
+                    <label>Tên loại hồ sơ <span class="text-danger">*</span></label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Nhập tên loại hồ sơ"
+                            formControlName="title"
+                    />
+                </div>
+
+                <div class="form-group mt-3">
+                    <label>Mô tả</label>
+                    <textarea
+                            rows="3"
+                            class="form-control"
+                            placeholder="Nhập mô tả"
+                            formControlName="des"
+                    ></textarea>
+                </div>
+            </form>
+        </div>
+
+        <div class="ovic-side-navigation-content__foot">
+            <button
+                    pButton
+                    pRipple
+                    type="button"
+                    label="Cập nhật"
+                    icon="pi pi-save"
+                    (click)="saveForm()"
+                    class="p-button-success"
+            ></button>
+            <button
+                    pButton
+                    pRipple
+                    type="button"
+                    label="Đóng"
+                    class="p-button-secondary ml-3"
+                    icon="pi pi-times"
+                    (click)="closeForm()"
+            ></button>
+        </div>
+    </div>
+</ng-template>

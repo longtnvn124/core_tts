@@ -10,11 +10,11 @@ export const environment: Environment = {
 		googleClientId: '196027039836-kjhoo8f8p3i2eldcodouvs94p1gbi4jo.apps.googleusercontent.com',
 		domain: 'https://api-dev.ictu.vn',
 		url: server,
-		api: server + 'thuctapsinh/api/',
-		fileDir: server + 'folder/thuctapsinh/',
-		media: server + 'thuctapsinh/api/uploads/',
-		driverFile: server + 'thuctapsinh/api/driver/',
-		aws: server + 'thuctapsinh/api/aws/',
+		api: server + 'tts/api/',
+		fileDir: server + 'folder/tts/',
+		media: server + 'tts/api/uploads/',
+		driverFile: server + 'tts/api/driver/',
+		aws: server + 'tts/api/aws/',
 		// X_APP_ID: '60A111A9-09EE-48B6-9B2D-6CCB70F56B1F'
 		X_APP_ID: '64c9a192-cc0e-4198-acb8-2188dbb472fa'
 	}

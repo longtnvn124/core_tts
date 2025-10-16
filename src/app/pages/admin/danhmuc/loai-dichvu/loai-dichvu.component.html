@@ -6,13 +6,16 @@
         </div>
         <ng-template #tableData>
             <ovic-table emptyMessage="Danh sách trống" [index]="index" [data]="listData"
-                        styleClass="ictu-ui-table tbl-danh-sach-tap-the head-input-size--normal head-input-size--250px" dataKey="id"
+                        styleClass="ictu-ui-table tbl-danh-sach-tap-the head-input-size--normal head-input-size--250px"
+                        dataKey="id"
                         rowHover="true"
                         [rows]="15" tableName="Danh sách lĩnh vực" [tblStructure]="tblCols"
                         (onButtonClick)="handleClickOnTable($event)" [enableSearch]="true" [enableSearchLocal]="false"
-                        (onSearch)="onSearch($event)" [searchDebounceTime]="800" [headerButtons]="headButtons"></ovic-table>
+                        (onSearch)="onSearch($event)" [searchDebounceTime]="800"
+                        [headerButtons]="headButtons"></ovic-table>
             <p-paginator class="p-paginator--custom" [showCurrentPageReport]="true" [rows]="rows"
-                         [totalRecords]="recordsTotal" [pageLinkSize]="5" (onPageChange)="paginate($event)"></p-paginator>
+                         [totalRecords]="recordsTotal" [pageLinkSize]="5"
+                         (onPageChange)="paginate($event)"></p-paginator>
         </ng-template>
     </div>
 </div>
@@ -21,7 +24,7 @@
 <ng-template #fromUpdate>
     <div class="ovic-side-navigation-content">
         <div class="ovic-side-navigation-content__head">
-            <h4 class="ovic-side-navigation-content__head__title" >{{formActive ? formActive.title : ''}}</h4>
+            <h4 class="ovic-side-navigation-content__head__title">{{ formActive ? formActive.title : '' }}</h4>
             <button (click)="closeForm()" pButton pRipple type="button" icon="pi pi-times"
                     class="p-button-rounded p-button-danger p-button-text close ovic-side-navigation-content__head__btn-close"></button>
         </div>
@@ -30,7 +33,7 @@
                 <form [formGroup]="formData" autocomplete="off">
                     <div class="row">
                         <div class="col">
-                            <p class="form-row" >
+                            <p class="form-row">
                                 <label>Tên Dịch vụ <span class="ovic-mark">*</span></label>
                                 <input type="text" placeholder="Vd:Du lịch, mua sắm,..." formControlName="ten_dm"
                                        autocomplete="off">
@@ -42,8 +45,9 @@
                     <div class="row">
                         <div class="col-12">
                             <p class="form-row">
-                                <label >Trạng thái<span class="ovic-mark">*</span></label>
-                                <p-dropdown placeholder="Chọn..." class="w-100" [options]="statusList" optionLabel="label"
+                                <label>Trạng thái<span class="ovic-mark">*</span></label>
+                                <p-dropdown placeholder="Chọn..." class="w-100" [options]="statusList"
+                                            optionLabel="label"
                                             optionValue="value" [showClear]="true"
                                             formControlName='status'></p-dropdown>
                             </p>

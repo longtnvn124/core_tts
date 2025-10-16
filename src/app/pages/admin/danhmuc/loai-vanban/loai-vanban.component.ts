@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+
 
 @Component({
-  selector: 'app-loai-vanban',
-  templateUrl: './loai-vanban.component.html',
-  styleUrls: ['./loai-vanban.component.css']
+    selector: 'app-loai-vanban',
+    templateUrl: './loai-vanban.component.html',
+    styleUrls: ['./loai-vanban.component.css'],
+    standalone: true,
+
 })
 export class LoaiVanbanComponent {
 
