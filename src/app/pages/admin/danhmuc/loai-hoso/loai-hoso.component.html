@@ -1,74 +1,110 @@
-<div class="d-flex flex-column">
-    <!-- SEARCH -->
-    <div class="mb-3 d-flex align-items-center">
-        <input
-                type="text"
-                [(ngModel)]="textSearch"
-                placeholder="Nhập từ khoá tìm kiếm..."
-                class="form-control w-25 mr-2"
-        />
-        <button
-                pButton
-                pRipple
-                label="Tìm kiếm"
-                icon="pi pi-search"
-                class="p-button-primary"
-                (click)="onSearch()"
-        ></button>
+<div class="d-flex flex-column" style="height: calc(100vh - 60px - 30px)">
+    <!-- SEARCH TOOLBAR -->
+    <div
+            class="toolbar-fixed d-flex align-items-center justify-content-between p-2 bg-white shadow-sm"
+            style="height: 60px; position: sticky; top: 0; z-index: 10; border-bottom: 1px solid #eaeaea;"
+    >
+        <!-- BÊN TRÁI -->
+        <h4 class="m-0 font-weight-bold" style="font-size: 1rem;">
+            DANH MỤC LOẠI HỒ SƠ
+        </h4>
 
-        <button
-                pButton
-                pRipple
-                label="Thêm mới"
-                icon="pi pi-plus"
-                class="p-button-success ml-2"
-                (click)="addNew()"
-        ></button>
+        <!-- BÊN PHẢI -->
+        <div class="d-flex align-items-center justify-content-end">
+            <div class="flex-grow-1 mx-2">
+                <input
+                        type="text"
+                        [(ngModel)]="textSearch"
+                        placeholder="Nhập từ khoá tìm kiếm..."
+                        class="form-control w-100"
+                        (input)="onSearch()"
+                />
+            </div>
+            <button
+                    pButton
+                    pRipple
+                    label="Tìm kiếm"
+                    icon="pi pi-search"
+                    class="p-button-primary"
+                    (click)="onSearch()"
+            ></button>
+            <!-- (keyup.enter)="onSearch()"-->
+            <button
+                    pButton
+                    pRipple
+                    label="Thêm mới"
+                    icon="pi pi-plus"
+                    class="p-button-success ml-2"
+                    (click)="addNew()"
+            ></button>
+        </div>
     </div>
 
     <!-- DATA TABLE -->
-    <table class="table table-hover table-bordered">
-        <thead>
-        <tr>
-            <th class="text-center ovic-w-50px">STT</th>
-            <th class="text-left">Tên loại hồ sơ</th>
-            <th class="text-center">Thao tác</th>
-        </tr>
-        </thead>
-        <tbody>
-        <ng-container *ngIf="listData && listData.length > 0; else noData">
-            <tr *ngFor="let item of listData">
-                <td class="text-center">{{ item['_index'] }}</td>
-                <td>
-                    <div><strong>{{ item.title }}</strong></div>
-                    <div>{{ item.des }}</div>
-                </td>
-                <td class="text-center">
-                    <button
-                            pButton
-                            pRipple
-                            icon="pi pi-pencil"
-                            class="p-button-warning btn-by-item"
-                            (click)="edit(item)"
-                    ></button>
-                    <button
-                            pButton
-                            pRipple
-                            icon="pi pi-trash"
-                            class="mx-1 p-button-danger btn-by-item"
-                            (click)="delete(item)"
-                    ></button>
-                </td>
-            </tr>
-        </ng-container>
-
-        <ng-template #noData>
+    <div
+            style="
+      flex: 1 1 auto;
+      overflow-y: auto;
+      background: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+    "
+    >
+        <table class="table table-hover table-bordered mb-0">
+            <thead style="position: sticky; top: 0; z-index: 5; background: #f8f9fa;">
             <tr>
-                <td colspan="3" class="text-center">Không có dữ liệu</td>
+                <th class="text-center ovic-w-50px">STT</th>
+                <th class="text-left">Tên loại hồ sơ</th>
+                <th class="text-center">Thao tác</th>
             </tr>
-        </ng-template>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            <ng-container *ngIf="listData && listData.length > 0; else noData">
+                <tr *ngFor="let item of listData">
+                    <td class="text-center">{{ item['_index'] }}</td>
+                    <td>
+                        <div><strong>{{ item.title }}</strong></div>
+                        <div>{{ item.des }}</div>
+                    </td>
+                    <td class="text-center">
+                        <button
+                                pButton
+                                pRipple
+                                icon="pi pi-pencil"
+                                class="p-button-warning btn-by-item"
+                                (click)="edit(item)"
+                        ></button>
+                        <button
+                                pButton
+                                pRipple
+                                icon="pi pi-trash"
+                                class="mx-1 p-button-danger btn-by-item"
+                                (click)="delete(item)"
+                        ></button>
+                    </td>
+                </tr>
+            </ng-container>
+
+            <ng-template #noData>
+                <tr>
+                    <td colspan="3" class="text-center">Không có dữ liệu</td>
+                </tr>
+            </ng-template>
+            </tbody>
+        </table>
+
+        <!-- Paginator -->
+        <div class="d-flex justify-content-center align-items-center mt-2 p-2">
+            <p-paginator
+                    [rows]="limit"
+                    [totalRecords]="totalRecords"
+                    [rowsPerPageOptions]="[5, 10, 15, 20]"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Hiển thị {first} - {last} / {totalRecords}"
+                    (onPageChange)="onPageChange($event)"
+            ></p-paginator>
+        </div>
+    </div>
 </div>
 
 <!-- SIDEBAR FORM -->
@@ -117,7 +153,7 @@
                     pButton
                     pRipple
                     type="button"
-                    label="Cập nhật"
+                    label="Lưu"
                     icon="pi pi-save"
                     (click)="saveForm()"
                     class="p-button-success"

@@ -5,13 +5,14 @@ import {ButtonModule} from 'primeng/button';
 import {RippleModule} from 'primeng/ripple';
 import {DmLoaiVanBan, DmLoaivanbanService} from '@service/thuctapsinh/dm-loaivanban.service';
 import {NotificationService} from '@appNotification';
+import {PaginatorModule} from 'primeng/paginator';
 
 @Component({
     selector: 'app-loai-hoso',
     standalone: true,
     templateUrl: './loai-hoso.component.html',
     styleUrls: ['./loai-hoso.component.css'],
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, RippleModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, RippleModule, PaginatorModule],
 })
 export class LoaiHosoComponent implements OnInit {
     @ViewChild('formSidebar', {static: true}) formSidebar!: TemplateRef<any>;
@@ -19,7 +20,7 @@ export class LoaiHosoComponent implements OnInit {
     listData: DmLoaiVanBan[] = [];
     textSearch: string = '';
     page: number = 1;
-    limit: number = 15;
+    limit: number = 10;
     totalRecords: number = 0;
 
     formData!: FormGroup;
@@ -46,6 +47,13 @@ export class LoaiHosoComponent implements OnInit {
             des: [''],
         });
     }
+
+    onPageChange(event: any) {
+        this.page = event.page + 1;
+        this.limit = event.rows;
+        this.loadInit();
+    }
+
 
     loadInit() {
         this.notifi.isProcessing(true);

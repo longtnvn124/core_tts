@@ -44,6 +44,7 @@ export class LoaiDichvuComponent implements OnInit {
     recordsTotal: number = 0;
     menuName: string = 'MENU';
     index: number = -1;
+    limit: number = 10;
 
     isLoading: boolean = false;
     loadInitFail: boolean = false;
@@ -151,12 +152,11 @@ export class LoaiDichvuComponent implements OnInit {
     }
 
     loadData() {
-        const limit = this.themeSettingsService.settings.rows;
-        this.index = this.page * limit - limit + 1;
+
 
         // this.isLoading = true;
         this.notificationService.isProcessing(true);
-        this.dmLoaiVanbanService.search(this.page, this.search).subscribe({
+        this.dmLoaiVanbanService.search(this.page, this.search, this.limit).subscribe({
             next: (res) => {
                 console.log(res.data);
                 this.listData = res.data.length > 0 ? res.data.map(m => {
