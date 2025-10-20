@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { distinctUntilChanged, firstValueFrom, map, Observable, retry, scan, switchMap } from 'rxjs';
-import { AwsResponseInfo, Download, OvicFile, Upload } from '@model/file';
+import {AwsResponseInfo, Download, OvicDriveFile, OvicFile, OvicFileStore, Upload} from '@model/file';
 import {
 	ACCESS_TOKEN_KEY,
 	getLinkDownload,
@@ -197,6 +197,17 @@ export class FileService {
 		return this.http.post(linkFileInfo(''), FileService.packFiles([file], tag), { params: params, reportProgress: true, observe: 'events' }).pipe(scan(calculateState, initialState));
 	}
 
+	formatBytes(bytes, decimals = 2): string {
+		if (!bytes || bytes === 0) {
+			return '0 Bytes';
+		}
+		const k = 1024;
+		const dm = decimals <= 0 ? 0 : decimals;
+		const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+		const i = Math.floor(Math.log(bytes) / Math.log(k));
+		return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+	}
+
 
 	// 
 	getPreviewLinkLocalFile({ id }: OvicFile | { id: number }): string {
@@ -275,5 +286,10 @@ export class FileService {
 		}
 		// formData.append('public', status.toString(10));
 		return formData;
+	}
+
+	getFileSize(file: OvicFile | OvicFileStore | OvicDriveFile): string {
+		const fileSize = file.size ? (typeof file.size === 'string' ? parseInt(file.size, 10) : file.size) : 0;
+		return this.formatBytes(fileSize);
 	}
 }

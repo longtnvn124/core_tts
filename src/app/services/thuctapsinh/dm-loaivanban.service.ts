@@ -5,13 +5,15 @@ import {ThemeSettingsService} from "@service/core/theme-settings.service";
 import {HttpParamsHeplerService} from "@service/core/http-params-hepler.service";
 import {map, Observable} from "rxjs";
 import {Dto, IctuConditionParam, IctuQueryCondition} from "@model/dto";
+import {FileService} from "@service/core/file.service";
+import {OvicFile} from "@model/file";
 
 
 export interface DmLoaiVanBan {
     id?: number;
     title: string;
     des: string;
-    _index?: number;
+    files?:OvicFile[];
 }
 
 @Injectable({

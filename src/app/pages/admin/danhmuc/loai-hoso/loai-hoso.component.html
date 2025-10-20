@@ -143,6 +143,13 @@
                             formControlName="des"
                     ></textarea>
                 </div>
+                <div class="form-group mt-3">
+                    <label>hình ảnh</label>
+                    <app-file-list-local class="w-100 ovic-vertical__file-list"
+                                         [permission]="filePermission" [multiple]="false" [accept]="['.png','.jpg',]" [state]="1"
+                                         [formField]="f['files']"
+                                         ></app-file-list-local>
+                </div>
             </form>
         </div>
 

@@ -1,11 +1,22 @@
 import { inject , Injectable } from '@angular/core';
-import { IctuDocument , IctuDocumentDownloadResult , IctuDriveFile , IctuFile , IctuMedia , IctuPreviewFileContent, OvicFile } from '@model/file';
+import {
+	IctuDocument,
+	IctuDocumentDownloadResult,
+	IctuDriveFile,
+	IctuFile,
+	IctuMedia,
+	IctuPreviewFileContent, OvicDocument,
+	OvicDriveFile,
+	OvicFile
+} from '@model/file';
 import { OutputFormat } from 'ngx-image-cropper/lib/interfaces/cropper-options.interface';
 import { MatDialog , MatDialogRef } from '@angular/material/dialog';
 import { firstValueFrom , lastValueFrom , Observable } from 'rxjs';
 import { ACCESS_TOKEN_KEY, getLinkDownload } from '@env';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { OvicAvatarMakerComponent } from 'src/app/templates/ovic-avatar-maker/ovic-avatar-maker.component';
+import {DownloadProcess} from "../../templates/file-list-local/file-list-local.component";
+import {OvicDownloadProgressComponent} from "../../templates/ovic-download-progress/ovic-download-progress.component";
 
 export interface ImageCroppedEvent {
     base64?: string | null;
@@ -103,5 +114,12 @@ export class MediaService {
 		
 		return panel.result;
 	}
+
+	tplDownloadFile( file : OvicFile | OvicDriveFile | OvicDocument ) : Promise<DownloadProcess> {
+		const popup                  = this.modalService.open( OvicDownloadProgressComponent , { size : 'sm' , backdrop : 'static' , centered : true , windowClass : 'ovic-modal-class ovic-modal-style-02' } );
+		popup.componentInstance.file = file;
+		return popup.result;
+	}
+
 
 }

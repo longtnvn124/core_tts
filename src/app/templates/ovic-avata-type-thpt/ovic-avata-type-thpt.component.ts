@@ -12,13 +12,14 @@ import { TYPE_FILE_IMAGE } from '@utilities/syscats';
 import { SafeUrlPipe } from "../../pipes/safe-url.pipe";
 import { SafeResourceUrlPipe } from "../../pipes/safe-resource-url.pipe";
 import { LoadCourseThumbnailDirective } from 'src/app/directives/load-course-thumbnail.directive';
+import {RippleModule} from "primeng/ripple";
 
 @Component({
     selector: 'ovic-avata-type-thpt',
     templateUrl: './ovic-avata-type-thpt.component.html',
     styleUrls: ['./ovic-avata-type-thpt.component.css'],
     standalone: true,
-    imports: [CommonModule, ButtonModule, FormsModule, SafeUrlPipe, SafeResourceUrlPipe,LoadCourseThumbnailDirective]
+  imports: [CommonModule, ButtonModule, FormsModule, SafeUrlPipe, SafeResourceUrlPipe, LoadCourseThumbnailDirective, RippleModule]
 })
 export class OvicAvataTypeThptComponent implements OnInit {
   @Input() site:boolean = false;
