@@ -48,6 +48,7 @@ export class LoaiHosoComponent implements OnInit {
         });
     }
 
+    // Phân trang
     onPageChange(event: any) {
         this.page = event.page + 1;
         this.limit = event.rows;
@@ -72,7 +73,7 @@ export class LoaiHosoComponent implements OnInit {
         this.loadInit();
     }
 
-    /** Mở sidebar khi thêm mới hoặc chỉnh sửa */
+    // Mở sidebar
     openForm(title: string, item?: DmLoaiVanBan) {
         this.formTitle = title;
         if (item) {
@@ -94,14 +95,14 @@ export class LoaiHosoComponent implements OnInit {
         });
     }
 
-    /** Đóng sidebar */
+    //Đóng sidebar
     closeForm() {
         this.notifi.closeSideNavigationMenu(this.menuName);
         this.formData.reset();
         this.currentItem = null;
     }
 
-    /** Lưu dữ liệu */
+    //Lưu
     saveForm() {
         if (this.formData.invalid) {
             this.notifi.toastError('Vui lòng nhập đầy đủ thông tin');
@@ -133,7 +134,7 @@ export class LoaiHosoComponent implements OnInit {
         }
     }
 
-    /** Xóa item */
+    // Xóa item
     delete(item: DmLoaiVanBan) {
         this.notifi.confirmDelete().then((confirmed) => {
             if (confirmed) {
@@ -148,12 +149,12 @@ export class LoaiHosoComponent implements OnInit {
         });
     }
 
-    /** Khi nhấn nút Sửa */
+    //Sửa
     edit(item: DmLoaiVanBan) {
         this.openForm('Cập nhật loại hồ sơ', item);
     }
 
-    /** Khi nhấn nút Thêm */
+    //Thêm
     addNew() {
         this.openForm('Thêm loại hồ sơ mới');
     }
