@@ -3,11 +3,12 @@ import {CommonModule} from '@angular/common';
 import {AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import {RippleModule} from 'primeng/ripple';
-import {DmLoaiVanBan, DmLoaivanbanService} from '@service/thuctapsinh/dm-loaivanban.service';
 import {NotificationService} from '@appNotification';
 import {PaginatorModule} from 'primeng/paginator';
-import {FileListLocalComponent} from "../../../../templates/file-list-local/file-list-local.component";
+
 import {getLinkDownload} from "@env";
+import {FileListLocalComponent} from "../../../../templates/file-list-local/file-list-local.component";
+import {DmLoaiVanBan, DmLoaivanbanService} from "@service/thuctapsinh/dm-loaivanban.service";
 
 @Component({
     selector: 'app-loai-hoso',
